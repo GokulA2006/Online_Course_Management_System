@@ -1,0 +1,128 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Student Registration{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center mt-4">
+
+    <div class="col-md-6">
+
+        <div class="card shadow p-4">
+
+            <h2 class="text-center text-primary fw-bold mb-4">
+                Student Registration
+            </h2>
+
+            {% if form.errors %}
+            <div class="alert alert-danger">
+                {{ form.errors }}
+            </div>
+            {% endif %}
+
+            <form method="POST" id="registerForm" autocomplete="off">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    {{ form.name }}
+                    <small class="text-danger" id="nameError"></small>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email"
+                           name="email"
+                           id="id_email"
+                           class="form-control"
+                           placeholder="Enter your email"
+                           autocomplete="off"
+                           required>
+                    <small class="text-danger" id="emailError"></small>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password"
+                           name="password"
+                           id="id_password"
+                           class="form-control"
+                           placeholder="Create a new password"
+                           autocomplete="new-password"
+                           required>
+                    <small class="text-danger" id="passwordError"></small>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Phone Number</label>
+                    {{ form.phone_number }}
+                    <small class="text-danger" id="phoneError"></small>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">
+                    Register
+                </button>
+
+            </form>
+
+            <p class="text-center mt-3 mb-0">
+                Already have an account?
+                <a href="{% url 'login' %}">Login Here</a>
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+document.getElementById('registerForm').addEventListener('submit', function(event) {
+
+    let valid = true;
+
+    let name = document.getElementById('id_name').value.trim();
+    let email = document.getElementById('id_email').value.trim();
+    let password = document.getElementById('id_password').value;
+    let phone = document.getElementById('id_phone_number').value.trim();
+
+    document.getElementById('nameError').innerHTML = '';
+    document.getElementById('emailError').innerHTML = '';
+    document.getElementById('passwordError').innerHTML = '';
+    document.getElementById('phoneError').innerHTML = '';
+
+    if (name === '') {
+        document.getElementById('nameError').innerHTML = 'Name is required';
+        valid = false;
+    }
+
+    if (email === '') {
+        document.getElementById('emailError').innerHTML = 'Email is required';
+        valid = false;
+    }
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        document.getElementById('emailError').innerHTML = 'Enter a valid email';
+        valid = false;
+    }
+
+    if (password.length < 8) {
+        document.getElementById('passwordError').innerHTML = 'Password must contain at least 8 characters';
+        valid = false;
+    }
+
+    if (!/^[0-9]{10}$/.test(phone)) {
+        document.getElementById('phoneError').innerHTML = 'Enter a valid 10-digit phone number';
+        valid = false;
+    }
+
+    if (!valid) {
+        event.preventDefault();
+    }
+
+});
+
+</script>
+
+{% endblock %}

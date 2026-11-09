@@ -1,0 +1,110 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Student Login{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center mt-4">
+
+    <div class="col-md-5">
+
+        <div class="card shadow p-4">
+
+            <h2 class="text-center text-primary fw-bold mb-4">
+                Student Login
+            </h2>
+
+            {% if msg %}
+            <div class="alert alert-danger">
+                {{ msg }}
+            </div>
+            {% endif %}
+
+            <form method="POST" id="loginForm" autocomplete="off">
+                {% csrf_token %}
+
+                <div class="mb-3">
+
+                    <label class="form-label">Email Address</label>
+
+                    <input type="email"
+                           name="email"
+                           id="id_email"
+                           class="form-control"
+                           placeholder="Enter your email"
+                           autocomplete="off"
+                           required>
+
+                    <small class="text-danger" id="emailError"></small>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">Password</label>
+
+                    <input type="password"
+                           name="password"
+                           id="id_password"
+                           class="form-control"
+                           placeholder="Enter your password"
+                           autocomplete="new-password"
+                           required>
+
+                    <small class="text-danger" id="passwordError"></small>
+
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">
+                    Login
+                </button>
+
+            </form>
+
+            <p class="text-center mt-3 mb-0">
+                Don't have an account?
+                <a href="{% url 'register' %}">Register Here</a>
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+
+    let valid = true;
+
+    let email = document.getElementById('id_email').value.trim();
+    let password = document.getElementById('id_password').value;
+
+    document.getElementById('emailError').innerHTML = '';
+    document.getElementById('passwordError').innerHTML = '';
+
+    if (email === '') {
+        document.getElementById('emailError').innerHTML = 'Email is required';
+        valid = false;
+    }
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        document.getElementById('emailError').innerHTML = 'Enter a valid email';
+        valid = false;
+    }
+
+    if (password.trim() === '') {
+        document.getElementById('passwordError').innerHTML = 'Password is required';
+        valid = false;
+    }
+
+    if (!valid) {
+        event.preventDefault();
+    }
+
+});
+
+</script>
+
+{% endblock %}

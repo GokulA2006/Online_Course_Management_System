@@ -1,0 +1,108 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Add Course{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-md-7">
+
+        <div class="card shadow p-4">
+
+            <h2 class="text-center text-primary mb-4">Add New Course</h2>
+
+            <form method="POST" id="courseForm">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label class="form-label">Course Name</label>
+                    {{ form.course_name }}
+                    <small class="text-danger" id="courseNameError"></small>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    {{ form.description }}
+                    <small class="text-danger" id="descriptionError"></small>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Duration</label>
+                    {{ form.duration }}
+                    <small class="text-danger" id="durationError"></small>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Fees</label>
+                    {{ form.fees }}
+                    <small class="text-danger" id="feesError"></small>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Available Seats</label>
+                    {{ form.available_seats }}
+                    <small class="text-danger" id="seatsError"></small>
+                </div>
+
+                <button type="submit" class="btn btn-success w-100">
+                    Add Course
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+document.getElementById('courseForm').addEventListener('submit', function(event) {
+
+    let valid = true;
+
+    let courseName = document.getElementById('id_course_name').value.trim();
+    let description = document.getElementById('id_description').value.trim();
+    let duration = document.getElementById('id_duration').value.trim();
+    let fees = document.getElementById('id_fees').value;
+    let seats = document.getElementById('id_available_seats').value;
+
+    document.getElementById('courseNameError').innerHTML = '';
+    document.getElementById('descriptionError').innerHTML = '';
+    document.getElementById('durationError').innerHTML = '';
+    document.getElementById('feesError').innerHTML = '';
+    document.getElementById('seatsError').innerHTML = '';
+
+    if (courseName === '') {
+        document.getElementById('courseNameError').innerHTML = 'Course name is required';
+        valid = false;
+    }
+
+    if (description === '') {
+        document.getElementById('descriptionError').innerHTML = 'Description is required';
+        valid = false;
+    }
+
+    if (duration === '') {
+        document.getElementById('durationError').innerHTML = 'Duration is required';
+        valid = false;
+    }
+
+    if (fees === '' || Number(fees) < 0 || !Number.isFinite(Number(fees))) {
+        document.getElementById('feesError').innerHTML = 'Enter valid fees';
+        valid = false;
+    }
+
+    if (seats === '' || !Number.isInteger(Number(seats)) || Number(seats) < 0) {
+        document.getElementById('seatsError').innerHTML = 'Enter valid available seats';
+        valid = false;
+    }
+
+    if (!valid) {
+        event.preventDefault();
+    }
+
+});
+</script>
+
+{% endblock %}

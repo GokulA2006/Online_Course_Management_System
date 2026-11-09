@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Course Registration{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Course Registration</title>
+</head>
+<body>
+
+    <h2>Course Registration</h2>
+
+    <h3>{{ course.course_name }}</h3>
+    <p>{{ course.description }}</p>
+    <p>Duration: {{ course.duration }}</p>
+    <p>Fees: {{ course.fees }}</p>
+    <p>Available Seats: {{ course.available_seats }}</p>
+
+    <p>{{ msg }}</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Confirm Registration</button>
+    </form>
+
+    <a href="{% url 'view_courses' %}">Back to Courses</a>
+
+</body>
+</html>
+{% endblock %}

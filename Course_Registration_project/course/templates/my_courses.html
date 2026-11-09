@@ -1,0 +1,117 @@
+
+{% extends 'base.html' %}
+
+{% block title %}My Courses{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <h2 class="text-primary fw-bold mb-4">My Registered Courses</h2>
+
+    <div class="row g-3 mb-4">
+
+        <div class="col-md-3">
+            <div class="card shadow-sm text-center p-3">
+                <h5>Total</h5>
+                <h3>{{ total }}</h3>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm text-center p-3">
+                <h5>Pending</h5>
+                <h3 class="text-warning">{{ pending }}</h3>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm text-center p-3">
+                <h5>Approved</h5>
+                <h3 class="text-success">{{ approved }}</h3>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm text-center p-3">
+                <h5>Rejected</h5>
+                <h3 class="text-danger">{{ rejected }}</h3>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            {% if registrations %}
+
+            <div class="table-responsive">
+
+                <table class="table table-bordered table-hover text-center">
+
+                    <thead class="table-primary">
+                        <tr>
+                            <th>S.No</th>
+                            <th>Course Name</th>
+                            <th>Duration</th>
+                            <th>Fees</th>
+                            <th>Registration Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for registration in registrations %}
+
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+
+                            <td>{{ registration.course.course_name }}</td>
+
+                            <td>{{ registration.course.duration }}</td>
+
+                            <td>₹{{ registration.course.fees }}</td>
+
+                            <td>{{ registration.registration_date }}</td>
+
+                            <td>
+                                {% if registration.status == 'pending' %}
+                                    <span class="badge bg-warning text-dark">Pending</span>
+
+                                {% elif registration.status == 'approved' %}
+                                    <span class="badge bg-success">Approved</span>
+
+                                {% elif registration.status == 'rejected' %}
+                                    <span class="badge bg-danger">Rejected</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            {% else %}
+
+            <div class="alert alert-info text-center">
+                You have not registered for any courses yet.
+                <br><br>
+                <a href="{% url 'view_courses' %}" class="btn btn-primary">
+                    Explore Courses
+                </a>
+            </div>
+
+            {% endif %}
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

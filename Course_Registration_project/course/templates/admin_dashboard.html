@@ -1,0 +1,120 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="mb-4">
+        <h2 class="fw-bold text-primary">Admin Dashboard</h2>
+        <h5 class="text-secondary">Course Registration Management System</h5>
+    </div>
+
+    <div class="card border-0 shadow-sm p-4 mb-4"
+         style="background-color: #e7f0ff;">
+        <h4 class="text-primary fw-bold">Welcome to Admin Page!</h4>
+        <p class="mb-0">Manage students, courses and registrations easily.</p>
+    </div>
+
+    <div class="row g-3 mb-4">
+
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm p-3 text-center"
+                 style="background-color: #dceaff;">
+                <h6>Total Students</h6>
+                <h2 class="text-primary fw-bold">{{ total_students }}</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm p-3 text-center"
+                 style="background-color: #dcf5e7;">
+                <h6>Total Courses</h6>
+                <h2 class="text-success fw-bold">{{ total_courses }}</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm p-3 text-center"
+                 style="background-color: #eee3ff;">
+                <h6>Total Registrations</h6>
+                <h2 class="fw-bold" style="color: #7541c8;">
+                    {{ total_registrations }}
+                </h2>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm p-3 text-center"
+                 style="background-color: #fff0d9;">
+                <h6>Pending Approvals</h6>
+                <h2 class="text-warning fw-bold">{{ pending }}</h2>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row g-4 mb-4">
+
+        <div class="col-12">
+            <div class="card shadow-sm border-0">
+
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Quick Overview</h5>
+                </div>
+
+                <div class="card-body">
+                    <div class="row text-center g-3">
+
+                        <div class="col-md-3">
+                            <h2 class="text-primary">👨‍🎓</h2>
+                            <h6>View Students</h6>
+                            <p class="text-muted small">Student Details</p>
+                            <a href="{% url 'view_students' %}"
+                               class="btn btn-primary btn-sm">View</a>
+                        </div>
+
+                        <div class="col-md-3">
+                            <h2 class="text-success">📚</h2>
+                            <h6>Add Course</h6>
+                            <p class="text-muted small">New Course</p>
+                            <a href="{% url 'add_course' %}"
+                               class="btn btn-success btn-sm">Add Now</a>
+                        </div>
+
+                        <div class="col-md-3">
+                            <h2 style="color:#7541c8;">📋</h2>
+                            <h6>Manage Registrations</h6>
+                            <p class="text-muted small">View & Update</p>
+                            <a href="{% url 'admin_registrations' %}"
+                               class="btn btn-sm text-white"
+                               style="background-color:#7541c8;">Manage</a>
+                        </div>
+
+                        <div class="col-md-3">
+                            <h2 class="text-warning">📖</h2>
+                            <h6>View Courses</h6>
+                            <p class="text-muted small">Course Details</p>
+                            <a href="{% url 'view_courses' %}"
+                               class="btn btn-warning btn-sm">View</a>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="text-center mb-3">
+        <a href="{% url 'admin_logout' %}" class="btn btn-danger">
+            Logout
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}

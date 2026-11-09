@@ -1,0 +1,64 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Edit Profile{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center mt-4">
+
+    <div class="col-md-6">
+
+        <div class="card shadow border-0 rounded-4">
+
+            <div class="card-body p-4">
+
+                <h2 class="text-center text-primary mb-4">
+                    Edit Student Profile
+                </h2>
+
+                <form method="POST">
+
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label class="form-label">Name</label>
+                        <input type="text" name="name"
+                               class="form-control"
+                               value="{{ student.name }}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" name="email"
+                               class="form-control"
+                               value="{{ student.email }}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Phone Number</label>
+                        <input type="text" name="phone_number"
+                               class="form-control"
+                               value="{{ student.phone_number }}" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">
+                        Update Profile
+                    </button>
+
+                    <a href="{% url 'student_profile' %}"
+                       class="btn btn-secondary w-100 mt-2">
+                        Cancel
+                    </a>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

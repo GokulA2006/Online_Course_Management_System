@@ -1,0 +1,85 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Student Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="mb-4">
+        <h2 class="fw-bold">Welcome, {{ student.name }}!</h2>
+        <p class="text-muted">Welcome to your Student Dashboard.</p>
+    </div>
+
+    <div class="row g-4">
+
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 p-3">
+                <h6 class="text-muted">Available Courses</h6>
+                <h2 class="text-primary">{{ total_courses }}</h2>
+                <a href="{% url 'view_courses' %}" class="btn btn-primary btn-sm">
+                    View Courses
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 p-3">
+                <h6 class="text-muted">My Courses</h6>
+                <h2 class="text-success">{{ my_courses }}</h2>
+                <a href="{% url 'my_courses' %}" class="btn btn-success btn-sm">
+                    My Courses
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 p-3">
+                <h6 class="text-muted">Pending</h6>
+                <h2 class="text-warning">{{ pending }}</h2>
+                <p class="text-muted mb-0">Waiting for approval</p>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 p-3">
+                <h6 class="text-muted">Approved</h6>
+                <h2 class="text-info">{{ approved }}</h2>
+                <p class="text-muted mb-0">Approved courses</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="card shadow-sm border-0 mt-5 p-4">
+
+        <h4 class="mb-3">Quick Actions</h4>
+
+        <div class="row g-3">
+
+            <div class="col-md-4">
+                <a href="{% url 'view_courses' %}" class="btn btn-primary w-100">
+                    Explore Courses
+                </a>
+            </div>
+
+            <div class="col-md-4">
+                <a href="{% url 'my_courses' %}" class="btn btn-success w-100">
+                    My Registered Courses
+                </a>
+            </div>
+
+            <div class="col-md-4">
+                <a href="{% url 'logout' %}" class="btn btn-danger w-100">
+                    Logout
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
